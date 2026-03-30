@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Peter Younan - Electrical and Computer Engineer specializing in FPGA and embedded systems.">
+    <title>Peter Younan | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <div class="logo">Peter Younan</div>
+                <ul class="nav-links">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <section class="hero">
+                <h1>Hi, I'm Peter<span class="cursor">_</span></h1>
+                <p>I am an Electrical and Computer Engineer. My main interest is working with FPGA and embedded systems,
+                    but I am open to the right opportunity.</p>
+            </section>
+        </header>
+
+        <main id="projects">
+            <div class="tabs">
+                <button class="tab-button active" data-tab="personal">Personal Projects</button>
+                <button class="tab-button" data-tab="school">School Engineering Projects</button>
+            </div>
+
+            <div class="tab-content active" id="personal">
+                <div class="project-grid">
+                    <div class="project-card">
+                        <h3>ESP32 Wireless Garage Door</h3>
+                        <p class="project-date">Recent</p>
+                        <p class="project-desc">Designed and implemented a full-stack embedded IoT system that enables
+                            remote garage door control over both WiFi and Bluetooth Low Energy (BLE) from a single ESP32
+                            firmware build. The firmware initializes the ESP32 in WiFi STA mode, connects to a local
+                            network, and spins up an HTTP web server on port 80 that serves a self-hosted control
+                            interface &mdash; no app or cloud dependency required. The frontend uses asynchronous
+                            JavaScript fetch() calls to hit the /pulse endpoint, triggering a 300ms active-low relay
+                            pulse on GPIO 23 that simulates a physical button press on the existing garage door opener,
+                            requiring zero modification to the original hardware.<br><br>In parallel, a BLE GATT server
+                            runs with a custom 128-bit service UUID and writable characteristic, allowing any
+                            BLE-capable device to trigger the same pulse by writing a non-zero byte. Connection
+                            lifecycle callbacks handle auto-restart of BLE advertising on client disconnect, maintaining
+                            persistent discoverability. GPIO state is safely initialized on boot to keep the relay off
+                            regardless of startup transients.<br><br><strong>Stack:</strong> C++ &bull; Arduino-ESP32
+                            SDK &bull; BLE GATT &bull; HTTP &bull; GPIO</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>Built a PC</h3>
+                        <p class="project-date">2/2022 &ndash; Present</p>
+                        <p class="project-desc">Built and iteratively upgraded a custom desktop system as an end-to-end
+                            hardware integration project, validating component compatibility and mechanical packaging
+                            (HYTE Y60 chassis, AM5 B650E platform, AIO cooling, dual M.2 NVMe storage). Performed
+                            motherboard BIOS/firmware updates to ensure stable CPU support (Ryzen 7 7800X3D), installed
+                            and configured Windows on NVMe storage, and executed bring-up verification (POST/boot,
+                            device detection). Resolved integration issues through systematic cable routing and
+                            connector/clearance troubleshooting to improve airflow, serviceability, and overall system
+                            reliability.</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>Repair Controllers</h3>
+                        <p class="project-date">7/2024 &ndash; 9/2024</p>
+                        <p class="project-desc">Repaired a PlayStation 4 controller by replacing the malfunctioning
+                            trigger mechanism, recalibrating and securing the joystick, and replacing the damaged
+                            charging port with a new one. After reassembly, tested the controller to ensure all
+                            functionalities were restored and collected components from other faulty controllers to
+                            restore another controller and worked after diagnostic test.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="school">
+                <div class="project-grid">
+                    <div class="project-card">
+                        <h3>Bluetooth-Controlled Smart Car</h3>
+                        <p class="project-date">1/2026 &ndash; 3/2026</p>
+                        <p class="project-desc">Designed and built a fully functional 4WD robotic car controlled
+                            wirelessly via a smartphone and HC-05 Bluetooth module. The system uses an
+                            Arduino-compatible microcontroller to receive serial commands and drive four DC gear motors
+                            through two L293D H-bridge ICs using PWM speed control.<br><br>Key
+                            contributions:<br>Architected the full hardware stack: HC-05 UART serial link &rarr; Arduino
+                            &rarr; dual L293D motor drivers &rarr; 4WD chassis. Wrote and tested embedded C++ firmware
+                            implementing real-time Bluetooth command parsing, differential steering logic, and safe
+                            motor startup state. Designed the software control flowchart and documented the complete
+                            wiring configuration across 12 motor-driver pin connections. Conducted power and cost
+                            analysis for a future ultrasonic obstacle-detection feature (HC-SR04), computing a 75 mW
+                            draw increase at $6.95 added hardware cost. Addressed real-world design factors including
+                            public safety, environmental impact, and accessibility.</p>
+                        <a href="Bluetooth_Design_Project.pdf" target="_blank" rel="noopener noreferrer"
+                            class="project-link">Read Project PDF &rarr;</a>
+                    </div>
+                    <div class="project-card">
+                        <h3>Automated Blinds</h3>
+                        <p class="project-date">1/2025 &ndash; 4/2025</p>
+                        <p class="project-desc">A group of engineers created a design for an automated blind with
+                            calculations of torque for correct motors, built a design in CAD to ensure measurements fit
+                            together for motors and 3D printed parts. Controlled how it operated with a light sensor and
+                            a motor to move the blinds from open to closed based on the lux level reading. Created
+                            manual mode with remote to open or close blinds.</p>
+                        <a href="Team_3_EGR2800_Design_Proposal.pdf" target="_blank" rel="noopener noreferrer"
+                            class="project-link">Read Design Proposal &rarr;</a>
+                    </div>
+                    <div class="project-card">
+                        <h3>Tic Tac Toe Game</h3>
+                        <p class="project-date">2/2025 &ndash; 4/2025</p>
+                        <p class="project-desc">Collaborated with three engineers to build an interactive Tic-Tac-Toe
+                            game on the Dragon12-Lite board using C. Implemented a physical, illuminated game board on a
+                            breadboard with a 9x9 LED grid driven through the board's data pins for real-time move
+                            visualization. Developed joystick controls enabling up/down/left/right and diagonal
+                            navigation for simple gameplay. Implemented the board's built-in LCD to manage the user
+                            interface to say players turn, keep track of game score, and display winner.</p>
+                        <a href="Tic-Tac-Toe.pdf" target="_blank" rel="noopener noreferrer" class="project-link">Read
+                            Game Report &rarr;</a>
+                    </div>
+                    <div class="project-card">
+                        <h3>Signed Calculator FPGA</h3>
+                        <p class="project-date">1/2024 &ndash; 4/2024</p>
+                        <p class="project-desc">Group of engineers designed a schematic for the calculator for each
+                            component and logic function. Programed using a Nexys A7-100T board by coding the parts in
+                            Vivado to create addition, subtraction, multiplication, and division functions for signed
+                            and unsigned numbers and displayed it with LEDs and function ran by pressing buttons on the
+                            board. Tested by generating waveform and verified output on the board.</p>
+                        <a href="FPGA_Calculator_Project.pdf" target="_blank" rel="noopener noreferrer"
+                            class="project-link">Read Logic Schematic &rarr;</a>
+                    </div>
+                    <div class="project-card">
+                        <h3>CATIA Kitchen Mixer</h3>
+                        <p class="project-date">9/2022 &ndash; 12/2022</p>
+                        <p class="project-desc">Collaborated with 2 engineers to design a full-scale kitchen mixer in
+                            CATIA, each teammate modeled assigned components like housing, gear train, motor mount,
+                            bowl, whisk. Divided the work between each member and assembled all necessary components to
+                            assemble life size replica of mixer in CAD. Exploded the parts while labeling each component
+                            and created a presentation for manufacture and explain each part and functionality as
+                            intended for industry.</p>
+                        <a href="javascript:void(0);" onclick="openModal('kitchenMixer')" class="project-link">View
+                            Project Slides &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <section id="contact" class="contact-section">
+            <h2>Get In Touch</h2>
+            <p>I am currently exploring opportunities for internships or entry-level positions in FPGA design and
+                embedded systems, or other technical opportunities that may present themselves. Whether you have a
+                question or just want to connect, I'll do my best to get back to you!</p>
+            <div class="contact-links">
+                <a href="mailto:your.email@example.com" class="contact-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    Email Me
+                </a>
+                <a href="https://github.com/Petre000" target="_blank" rel="noopener noreferrer"
+                    class="contact-btn outline">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                        </path>
+                    </svg>
+                    GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/peter-younan-989961299/" target="_blank" rel="noopener noreferrer"
+                    class="contact-btn outline">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                    LinkedIn
+                </a>
+                <a href="resume.pdf" target="_blank" rel="noopener noreferrer" class="contact-btn outline">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    Resume
+                </a>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Peter Younan. Built with minimalism in mind.</p>
+        </footer>
+    </div>
+
+    <!-- Project Gallery Modal -->
+    <div id="project-modal" class="modal">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <div class="modal-gallery-container">
+            <button class="modal-nav prev-btn" onclick="changeSlide(-1)">&#10094;</button>
+            <div class="modal-content">
+                <img id="modal-img" src="" alt="Project Slide">
+                <div id="modal-caption" class="modal-caption"></div>
+            </div>
+            <button class="modal-nav next-btn" onclick="changeSlide(1)">&#10095;</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
