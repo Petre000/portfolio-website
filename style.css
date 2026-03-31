@@ -9,6 +9,17 @@
     --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+/* Background car canvas */
+#bg-car-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -16,7 +27,8 @@
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 300;
     background: linear-gradient(-45deg, #2b2b2f, #212630, #1c212b, #2b2b2f);
     background-size: 400% 400%;
     animation: gradientBG 20s ease infinite;
@@ -52,6 +64,8 @@ a:hover {
     max-width: 800px;
     margin: 0 auto;
     padding: 2rem 1.5rem;
+    position: relative;
+    z-index: 1;
 }
 
 /* Header & Nav */
@@ -192,7 +206,7 @@ nav {
 .project-card {
     background-color: var(--surface-color);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 0;
     padding: 1.8rem;
     transition: var(--transition);
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
@@ -238,11 +252,11 @@ nav {
 }
 .project-card .project-desc::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.03);
-    border-radius: 4px;
+    border-radius: 0;
 }
 .project-card .project-desc::-webkit-scrollbar-thumb {
     background: #5a5f6b;
-    border-radius: 4px;
+    border-radius: 0;
 }
 .project-card .project-desc::-webkit-scrollbar-thumb:hover {
     background: var(--accent);
@@ -299,7 +313,7 @@ nav {
     background-color: var(--accent);
     color: #1e1e24;
     font-weight: 600;
-    border-radius: 8px;
+    border-radius: 0;
     transition: var(--transition);
 }
 
@@ -362,7 +376,7 @@ footer {
     .tab-button {
         text-align: left;
         padding: 0.8rem 1rem;
-        border-radius: 8px;
+        border-radius: 0;
         background-color: var(--surface-color);
         border: 1px solid var(--border);
     }
@@ -418,7 +432,7 @@ footer {
 #modal-img {
     max-width: 100%;
     max-height: 80vh;
-    border-radius: 8px;
+    border-radius: 0;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     object-fit: contain;
     user-select: none;
@@ -454,7 +468,7 @@ footer {
     font-size: 40px;
     padding: 20px 25px;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 0;
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
