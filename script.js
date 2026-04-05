@@ -388,3 +388,73 @@ document.addEventListener('keydown', function (event) {
     animate();
 })();
 
+// --- Project Detail Modal Logic ---
+(function () {
+    const detailModal = document.getElementById('detail-modal');
+    const detailTitle = document.getElementById('detail-title');
+    const detailDate = document.getElementById('detail-date');
+    const detailBody = document.getElementById('detail-body');
+    const detailLink = document.getElementById('detail-link');
+
+    function openDetailModal(card) {
+        const titleEl = card.querySelector('h3');
+        const dateEl = card.querySelector('.project-date');
+        const descEl = card.querySelector('.project-desc');
+        const linkEl = card.querySelector('.project-link');
+
+        detailTitle.textContent = titleEl ? titleEl.textContent : '';
+        detailDate.textContent = dateEl ? dateEl.textContent : '';
+        detailBody.innerHTML = descEl ? descEl.innerHTML : '';
+        detailBody.style.whiteSpace = 'normal';
+
+        if (linkEl && linkEl.href && !linkEl.href.includes('javascript:void')) {
+            detailLink.href = linkEl.href;
+            detailLink.textContent = linkEl.textContent.trim();
+            detailLink.style.display = 'inline-flex';
+            detailLink.onclick = null;
+        } else if (linkEl && linkEl.getAttribute('onclick')) {
+            detailLink.href = '#';
+            detailLink.textContent = linkEl.textContent.trim();
+            detailLink.style.display = 'inline-flex';
+            detailLink.onclick = (e) => {
+                e.preventDefault();
+                closeDetailModalDirect();
+                linkEl.click();
+            };
+        } else {
+            detailLink.style.display = 'none';
+            detailLink.onclick = null;
+        }
+
+        detailModal.style.display = 'flex';
+        void detailModal.offsetWidth; // force reflow for transition
+        detailModal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeDetailModalDirect() {
+        detailModal.classList.remove('show');
+        document.body.style.overflow = '';
+        setTimeout(() => { detailModal.style.display = 'none'; }, 280);
+    }
+
+    window.closeDetailModal = function (e) {
+        // If called from the backdrop click, only close if clicking the backdrop itself
+        if (e && e.currentTarget === detailModal && e.target !== detailModal) return;
+        closeDetailModalDirect();
+    };
+
+    // Attach click to every project card h3
+    document.querySelectorAll('.project-card h3').forEach(h3 => {
+        h3.addEventListener('click', () => {
+            openDetailModal(h3.closest('.project-card'));
+        });
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && detailModal.classList.contains('show')) {
+            closeDetailModalDirect();
+        }
+    });
+})();
