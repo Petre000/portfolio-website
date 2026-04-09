@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marcus Wear — Est. 1996</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Lato:wght@300;400;700&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --nav:#1c1400; --hero:#2b1e06; --gold:#c49a28; --gbtn:#b8921f; --gh:#d4aa3a;
+  --cream:#f0ead8; --cdim:#b8aa8a; --sage:#c8d9be; --sagetxt:#3d5c35;
+  --body:#f4efe6; --card:#e8e2d6; --white:#fff;
+  --serif:'Playfair Display',Georgia,serif; --sans:'Lato',sans-serif; --caps:'Cinzel',serif;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--body);color:#2a1e05;font-family:var(--sans);overflow-x:hidden}
+
+/* ANNOUNCE */
+.ann{background:var(--nav);text-align:center;padding:9px 1rem;font-size:11.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--cream);position:sticky;top:0;z-index:400}
+
+/* NAV */
+nav{background:var(--nav);display:flex;align-items:center;padding:0 1.25rem;height:52px;position:sticky;top:37px;z-index:300;border-bottom:1px solid rgba(255,255,255,.06)}
+.nlogo{display:flex;align-items:center;gap:5px;cursor:pointer;flex-shrink:0;margin-right:1.5rem}
+.nlogo img{width:30px;height:auto;filter:drop-shadow(0 0 6px rgba(196,154,40,.2))}
+.nlogo span{font-family:var(--caps);font-size:14px;font-weight:500;color:var(--gold);letter-spacing:.1em}
+.nlinks{display:flex;align-items:center;flex:1}
+.ni{position:relative}
+.ni>a{display:flex;align-items:center;gap:3px;padding:0 .6rem;height:52px;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#d8cdb8;text-decoration:none;cursor:pointer;white-space:nowrap;transition:color .2s}
+.ni:hover>a{color:var(--gold)}
+.caret{font-size:7px;opacity:.65;margin-top:1px}
+
+/* DROPDOWN — FIXED */
+.dd{position:absolute;top:100%;left:0;background:#fff;min-width:210px;border-radius:0 0 8px 8px;box-shadow:0 8px 30px rgba(0,0,0,.14);opacity:0;pointer-events:none;transform:translateY(-4px);transition:opacity .18s,transform .18s;z-index:999;overflow:hidden;padding-top:6px;padding-bottom:4px}
+/* bridge the gap so hover doesn't break */
+.ni::after{content:'';position:absolute;top:100%;left:0;width:100%;height:10px;display:none}
+.ni:hover::after{display:block}
+.ni:hover .dd{opacity:1;pointer-events:all;transform:translateY(0)}
+.ddh{padding:.85rem 1.2rem .35rem;font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.dddiv{height:1px;background:#ede8de;margin:.28rem 1.2rem}
+.dd a{display:block;padding:.42rem 1.2rem;font-size:13.5px;color:#2a2010;text-decoration:none;cursor:pointer;transition:color .15s,padding-left .15s}
+.dd a:hover{color:var(--gold);padding-left:1.4rem}
+.ddall{color:var(--gold)!important;font-weight:700!important;padding-top:.62rem!important;padding-bottom:.82rem!important}
+
+/* NAV RIGHT */
+.nr{display:flex;align-items:center;gap:.85rem;margin-left:auto}
+.nic{background:none;border:none;cursor:pointer;color:#c8bfaa;display:flex;align-items:center;padding:3px;transition:color .2s}
+.nic:hover{color:var(--gold)}
+.nic svg{width:18px;height:18px}
+
+/* SOCIAL SIDEBAR */
+.ssb{position:fixed;left:1.1rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:.5rem;z-index:100}
+.sb{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.9);border:1px solid rgba(0,0,0,.08);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#444;box-shadow:0 2px 8px rgba(0,0,0,.12);transition:background .2s,color .2s;text-decoration:none}
+.sb:hover{background:var(--gold);color:#fff}
+.sb svg{width:14px;height:14px;fill:currentColor}
+
+/* HERO */
+.hero{position:relative;background:var(--hero);min-height:500px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+.hc{position:relative;z-index:2;padding:3.5rem 2rem}
+.hfl{width:60px;height:auto;filter:drop-shadow(0 0 12px rgba(196,154,40,.25))}
+.hmw{font-family:var(--caps);font-size:26px;color:var(--gold);letter-spacing:.14em;margin-top:2px}
+.hest{font-size:11px;letter-spacing:.38em;text-transform:uppercase;color:var(--cdim);margin:.4rem 0 1.4rem}
+.ht{font-family:var(--serif);font-size:clamp(2.5rem,4.5vw,4rem);font-weight:400;color:var(--cream);line-height:1.1;margin-bottom:1.1rem}
+.ht em{font-style:italic;color:var(--gold)}
+.hs{font-size:15px;font-weight:300;color:var(--cdim);line-height:1.75;max-width:460px;margin:0 auto 2.25rem}
+.hbtn{display:inline-block;background:var(--gbtn);color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;padding:13px 38px;border:none;cursor:pointer;text-decoration:none;transition:background .2s}
+.hbtn:hover{background:var(--gh)}
+
+/* SPRING STRIP */
+.spr{background:var(--sage);display:flex;align-items:center;justify-content:center;gap:.7rem;padding:11px 1rem}
+.spr span{font-size:11.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--sagetxt)}
+
+/* SECTION */
+.sec{background:var(--body);padding:2.75rem 2.5rem 2rem}
+.sech{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.6rem}
+.sect{font-family:var(--serif);font-size:1.9rem;font-weight:400;color:#2a1e05}
+.va{font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gbtn);cursor:pointer;text-decoration:none}
+.va:hover{text-decoration:underline}
+
+/* PRODUCT GRID */
+.pg{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;margin-bottom:1rem}
+.pc{background:var(--card);position:relative;cursor:pointer;border-radius:3px;overflow:hidden}
+.piw{aspect-ratio:3/4;overflow:hidden;background:#d8d2c6;position:relative;display:flex;align-items:center;justify-content:center}
+.piw img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.pc:hover .piw img{transform:scale(1.04)}
+.pbadge{position:absolute;top:10px;left:10px;background:var(--sage);color:var(--sagetxt);font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:3px 9px;border-radius:2px;z-index:2}
+.pbadge-sale{background:#b91c1c;color:#fff}
+.wlb{position:absolute;top:8px;right:8px;width:28px;height:28px;background:rgba(255,255,255,.85);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#999;z-index:2;box-shadow:0 1px 4px rgba(0,0,0,.1);transition:color .2s}
+.wlb:hover,.wlb.on{color:#c0392b}
+.wlb svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2}
+.pinfo{padding:.8rem .85rem .95rem}
+.pbrand{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#aaa}
+.pname{font-family:var(--serif);font-size:1.04rem;font-weight:400;color:#2a1e05;line-height:1.25;margin:.25rem 0}
+.psizes{font-size:11px;color:#bbb;margin-bottom:.3rem}
+.pprice{font-size:13.5px;font-weight:700;color:#2a1e05}
+.porig{font-weight:400;text-decoration:line-through;color:#bbb;margin-right:.3rem;font-size:12px}
+.psale{color:#b91c1c}
+
+/* PHOTO SOON */
+.soon{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;background:#e0dbd0;gap:.55rem;padding:1rem}
+.soon svg{width:32px;height:32px;fill:none;stroke:#b8926a;stroke-width:1.5}
+.soon span{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#b8926a;text-align:center}
+
+/* CATEGORY TILES */
+.catsec{background:var(--body);padding:0 2.5rem 3rem}
+.catgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:.9rem}
+.cttile{position:relative;overflow:hidden;cursor:pointer;border-radius:3px;aspect-ratio:2/3}
+.cttile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .55s ease;filter:brightness(.78)}
+.cttile:hover img{transform:scale(1.07);filter:brightness(.62)}
+.ctlbl{position:absolute;bottom:0;left:0;right:0;padding:.85rem .75rem;background:linear-gradient(transparent,rgba(20,12,0,.76));text-align:center}
+.ctname{font-family:var(--serif);font-size:1.05rem;font-weight:400;color:#fff;display:block;margin-bottom:3px}
+.ctlink{font-size:9.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+
+/* TRUST BAR */
+.trust{background:var(--white);border-top:1px solid rgba(180,160,120,.2);border-bottom:1px solid rgba(180,160,120,.2);display:grid;grid-template-columns:repeat(4,1fr)}
+.titem{display:flex;align-items:center;justify-content:center;gap:.85rem;padding:1.55rem 1.25rem;border-right:1px solid rgba(180,160,120,.15)}
+.titem:last-child{border-right:none}
+.ticon{width:36px;height:36px;flex-shrink:0;fill:none;stroke:var(--gold);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ttitle{font-size:12.5px;font-weight:700;color:#2a1e05;margin-bottom:2px}
+.tsub{font-size:11.5px;color:#999;line-height:1.4}
+
+/* SALE STRIP */
+.salebanner{background:var(--nav);display:flex;align-items:center;justify-content:space-between;padding:2.5rem 3.5rem;gap:2rem}
+.stag{font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+.stitle{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:400;color:var(--cream);line-height:1.15}
+.stitle em{font-style:italic;color:var(--gold)}
+.ssub{font-size:13.5px;font-weight:300;color:var(--cdim);margin-top:.5rem}
+.sbtn{background:var(--gbtn);color:#fff;font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;padding:13px 36px;border:none;cursor:pointer;white-space:nowrap;flex-shrink:0;text-decoration:none;transition:background .2s}
+.sbtn:hover{background:var(--gh)}
+
+/* CLOTHIER BANNER */
+.clo{position:relative;background:var(--hero);display:flex;align-items:center;justify-content:center;text-align:center;padding:5rem 2rem;overflow:hidden}
+.clo canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+.cloc{position:relative;z-index:2;max-width:600px}
+.clotag{display:block;font-size:10.5px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem;font-style:italic}
+.clotitle{font-family:var(--serif);font-size:clamp(2.2rem,4vw,3.2rem);font-weight:400;color:var(--gold);line-height:1.1;margin-bottom:1.1rem}
+.clotitle em{font-style:italic;color:var(--cream)}
+.closub{font-size:14.5px;font-weight:300;color:var(--cdim);line-height:1.75;margin-bottom:2.25rem}
+.clobtns{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap}
+.btng{background:var(--gbtn);color:#fff;font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;padding:12px 32px;border:none;cursor:pointer;text-decoration:none;transition:background .2s}
+.btng:hover{background:var(--gh)}
+.btno{background:transparent;color:var(--cream);font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;padding:11px 32px;border:1.5px solid rgba(255,255,255,.3);cursor:pointer;text-decoration:none;transition:border-color .2s,color .2s}
+.btno:hover{border-color:var(--gold);color:var(--gold)}
+
+/* NEWSLETTER */
+.nl{background:var(--body);border-top:1px solid rgba(180,160,120,.25);padding:3.5rem 2rem;text-align:center}
+.nll{font-size:12px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+.nls{font-size:14px;color:#888;margin-bottom:1.5rem}
+.nlform{display:flex;align-items:stretch;justify-content:center;max-width:520px;margin:0 auto}
+.nlinput{flex:1;padding:12px 16px;font-size:13.5px;font-family:var(--sans);border:1px solid #d8d0c0;border-right:none;outline:none;background:#fff;color:#333}
+.nlinput:focus{border-color:var(--gold)}
+.nlbtn{background:var(--gbtn);color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;padding:12px 24px;border:none;cursor:pointer;transition:background .2s}
+.nlbtn:hover{background:var(--gh)}
+
+/* FOOTER */
+footer{background:var(--body);padding:3rem 2.5rem;display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:2rem;border-top:1px solid rgba(180,160,120,.2)}
+.fmwrap{display:flex;align-items:center;gap:6px;margin-bottom:1rem}
+.fmwrap img{width:32px;height:auto;filter:drop-shadow(0 0 8px rgba(196,154,40,.2))}
+.fmwrap span{font-family:var(--caps);font-size:16px;color:var(--gold);letter-spacing:.1em}
+.ftag{font-size:13px;color:#777;line-height:1.7;max-width:340px;margin-bottom:1.5rem}
+.fci{display:flex;align-items:flex-start;gap:.65rem;font-size:13px;color:#555;line-height:1.5;margin-bottom:.75rem}
+.fci svg{width:15px;height:15px;flex-shrink:0;margin-top:2px;fill:none;stroke:var(--gold);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.fcol h5{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#2a1e05;margin-bottom:1.1rem}
+.fcol a{display:block;font-size:13px;color:#666;text-decoration:none;margin-bottom:.55rem;cursor:pointer;transition:color .2s}
+.fcol a:hover{color:var(--gold)}
+.fbot{background:var(--body);border-top:1px solid rgba(180,160,120,.18);padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between}
+.fbot p{font-size:11.5px;color:#aaa;letter-spacing:.05em}
+.fsoc{display:flex;gap:1.1rem}
+.fsoc a{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;text-decoration:none;transition:color .2s;cursor:pointer}
+.fsoc a:hover{color:var(--gold)}
+
+/* RESPONSIVE */
+@media(max-width:1100px){.pg{grid-template-columns:repeat(3,1fr)};footer{grid-template-columns:1fr 1fr};.catgrid{grid-template-columns:repeat(3,1fr)};.trust{grid-template-columns:repeat(2,1fr)};.titem:nth-child(2){border-right:none};.titem:nth-child(3){border-top:1px solid rgba(180,160,120,.15)};.titem:nth-child(4){border-top:1px solid rgba(180,160,120,.15)}}
+@media(max-width:720px){.pg{grid-template-columns:repeat(2,1fr)};.sec,.catsec{padding-left:1rem;padding-right:1rem};footer{grid-template-columns:1fr;padding:2rem 1rem};.catgrid{grid-template-columns:repeat(2,1fr)};.trust{grid-template-columns:1fr};.titem{border-right:none!important;border-bottom:1px solid rgba(180,160,120,.15)};.titem:nth-child(3),.titem:nth-child(4){border-top:none};.salebanner{flex-direction:column;text-align:center;padding:2rem 1.5rem}}
+</style>
+</head>
+<body>
+
+<!-- NEW DETAILED LOGO SVG (used everywhere) -->
+
+<!-- Social Sidebar -->
+<div class="ssb">
+  <a class="sb" title="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+  <a class="sb" title="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+  <a class="sb" title="TikTok"><svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+  <a class="sb" title="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.736-8.84L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg></a>
+</div>
+
+<!-- Announcement -->
+<div class="ann">FREE SHIPPING ON DOMESTIC ORDERS OVER $150!</div>
+
+<!-- Nav -->
+<nav>
+  <div class="nlogo">
+    <img src="https://www.activepowerwashing.com/downloads/marcuswear/logo/logo.png" alt="MW">
+    <span>MW</span>
+  </div>
+  <div class="nlinks">
+    <div class="ni"><a>SUITS <span class="caret">▾</span></a><div class="dd"><div class="ddh">Suits</div><div class="dddiv"></div><a>3-Piece Suits</a><a>2-Piece Suits</a><a>Linen Suits</a><a>Boys Suits</a><div class="dddiv"></div><a class="ddall">Shop All Suits</a></div></div>
+    <div class="ni"><a>BLAZERS <span class="caret">▾</span></a><div class="dd"><div class="ddh">Blazers</div><div class="dddiv"></div><a>Sport Coats</a><a>Double Breasted</a><a>Single Breasted</a><a>Linen Blazers</a><div class="dddiv"></div><a class="ddall">Shop All Blazers</a></div></div>
+    <div class="ni"><a>COATS <span class="caret">▾</span></a><div class="dd"><div class="ddh">Coats</div><div class="dddiv"></div><a>Overcoats</a><a>Topcoats</a><a>Trench Coats</a><a>Raincoats</a><div class="dddiv"></div><a class="ddall">Shop All Coats</a></div></div>
+    <div class="ni"><a>SHIRTS <span class="caret">▾</span></a><div class="dd"><div class="ddh">Shirts</div><div class="dddiv"></div><a>Dress Shirts</a><a>Casual Shirts</a><a>French Cuff</a><a>Boys Shirts</a><div class="dddiv"></div><a class="ddall">Shop All Shirts</a></div></div>
+    <div class="ni"><a>PANTS <span class="caret">▾</span></a><div class="dd"><div class="ddh">Pants</div><div class="dddiv"></div><a>Dress Pants</a><a>Slim Fit Pants</a><a>Linen Pants</a><a>Boys Pants</a><div class="dddiv"></div><a class="ddall">Shop All Pants</a></div></div>
+    <div class="ni"><a>VESTS <span class="caret">▾</span></a><div class="dd"><div class="ddh">Vests</div><div class="dddiv"></div><a>Suit Vests</a><a>Dress Vests</a><a>Boys Vests</a><div class="dddiv"></div><a class="ddall">Shop All Vests</a></div></div>
+    <div class="ni"><a>SHOES <span class="caret">▾</span></a><div class="dd"><div class="ddh">Shoes</div><div class="dddiv"></div><a>Oxford Shoes</a><a>Derby Shoes</a><a>Loafers</a><a>Monk Straps</a><a>Boys Shoes</a><div class="dddiv"></div><a class="ddall">Shop All Shoes</a></div></div>
+    <div class="ni"><a>TUXEDOS <span class="caret">▾</span></a><div class="dd"><div class="ddh">Tuxedos</div><div class="dddiv"></div><a>3-Piece Tuxedos</a><a>2-Piece Tuxedos</a><a>Shawl Lapel</a><a>Boys Tuxedos</a><div class="dddiv"></div><a class="ddall">Shop All Tuxedos</a></div></div>
+    <div class="ni"><a>ACCESSORIES <span class="caret">▾</span></a><div class="dd"><div class="ddh">Accessories</div><div class="dddiv"></div><a>Ties &amp; Bow Ties</a><a>Pocket Squares</a><a>Belts</a><a>Cufflinks</a><a>Suspenders</a><div class="dddiv"></div><a class="ddall">Shop All Accessories</a></div></div>
+    <div class="ni"><a>MORE <span class="caret">▾</span></a><div class="dd"><div class="ddh">More</div><div class="dddiv"></div><a>New Arrivals</a><a>Sale</a><a>Gift Cards</a><a>Our Story</a><a>Contact Us</a></div></div>
+  </div>
+  <div class="nr">
+    <button class="nic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+    <button class="nic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+    <button class="nic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></button>
+    <button class="nic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <canvas id="hpetal"></canvas>
+  <div class="hc">
+    <img class="hfl" src="https://www.activepowerwashing.com/downloads/marcuswear/logo/logo.png" alt="Marcus Wear">
+    <div class="hmw">MARCUS WEAR</div>
+    <p class="hest">The Art of Fine Tailoring — Est. 1996</p>
+    <h1 class="ht">The Art of <em>Fine Tailoring</em></h1>
+    <p class="hs">Premium suits, blazers, shirts, tuxedos, and accessories — every piece crafted for the modern gentleman.</p>
+    <a class="hbtn">SHOP ALL</a>
+  </div>
+</section>
+
+<!-- Spring Strip -->
+<div class="spr"><span style="font-size:15px">🌸</span><span>Spring Collection — Fresh Linens, Lightweight Suits &amp; Breathable Fabrics for Warmer Days.</span></div>
+
+<!-- Spring Collection -->
+<div class="sec">
+  <div class="sech"><h2 class="sect">Spring Collection</h2><a class="va">VIEW ALL →</a></div>
+  <div class="pg" id="sg"></div>
+</div>
+
+<!-- Shop By Category -->
+<div class="catsec">
+  <div class="sech"><h2 class="sect">Shop by Category</h2><a class="va">ALL CATEGORIES →</a></div>
+  <div class="catgrid">
+    <div class="cttile"><img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?w=400&q=80" alt="Suits" loading="lazy"><div class="ctlbl"><span class="ctname">Suits</span><span class="ctlink">Shop Now →</span></div></div>
+    <div class="cttile"><img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400&q=80" alt="Blazers" loading="lazy"><div class="ctlbl"><span class="ctname">Blazers</span><span class="ctlink">Shop Now →</span></div></div>
+    <div class="cttile"><img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&q=80" alt="Shirts" loading="lazy"><div class="ctlbl"><span class="ctname">Shirts</span><span class="ctlink">Shop Now →</span></div></div>
+    <div class="cttile"><img src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400&q=80" alt="Pants" loading="lazy"><div class="ctlbl"><span class="ctname">Pants</span><span class="ctlink">Shop Now →</span></div></div>
+    <div class="cttile"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80" alt="Shoes" loading="lazy"><div class="ctlbl"><span class="ctname">Shoes</span><span class="ctlink">Shop Now →</span></div></div>
+    <div class="cttile"><img src="https://images.unsplash.com/photo-1594938298603-c8148c4b984e?w=400&q=80" alt="Accessories" loading="lazy"><div class="ctlbl"><span class="ctname">Accessories</span><span class="ctlink">Shop Now →</span></div></div>
+  </div>
+</div>
+
+<!-- Trust Bar -->
+<div class="trust">
+  <div class="titem">
+    <svg class="ticon" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+    <div><div class="ttitle">Free Shipping</div><div class="tsub">On domestic orders over $150</div></div>
+  </div>
+  <div class="titem">
+    <svg class="ticon" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+    <div><div class="ttitle">Easy Returns</div><div class="tsub">30-day hassle-free return policy</div></div>
+  </div>
+  <div class="titem">
+    <svg class="ticon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <div><div class="ttitle">Secure Checkout</div><div class="tsub">SSL encrypted &amp; safe payments</div></div>
+  </div>
+  <div class="titem">
+    <svg class="ticon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.05 9.11a2 2 0 011.45-2.49h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 14.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    <div><div class="ttitle">Expert Support</div><div class="tsub">Mon–Sat, 10am–6pm EST</div></div>
+  </div>
+</div>
+
+<!-- Sale Banner -->
+<div class="salebanner">
+  <div>
+    <div class="stag">Limited Time Offer</div>
+    <div class="stitle">Up to <em>40% Off</em> Select Styles</div>
+    <div class="ssub">Suits, blazers, tuxedos &amp; more — while supplies last.</div>
+  </div>
+  <a class="sbtn">SHOP THE SALE</a>
+</div>
+
+<!-- Clothier Banner -->
+<div class="clo">
+  <canvas id="cpetal"></canvas>
+  <div class="cloc">
+    <span class="clotag">Custom Clothier — Est. 1996</span>
+    <h2 class="clotitle">Your Garment, <em>Your Way</em></h2>
+    <p class="closub">Choose your fabric, pick your buttons, select your lining — every detail tailored to you. From suits and shirts to tuxedos, vests, pants, and overcoats.</p>
+    <div class="clobtns"><a class="btng">START BUILDING</a><a class="btno">LEARN MORE</a></div>
+  </div>
+</div>
+
+<!-- Bestsellers -->
+<div class="sec" style="padding-bottom:3rem">
+  <div class="sech"><h2 class="sect">Bestsellers</h2><a class="va">SHOP ALL →</a></div>
+  <div class="pg" id="bg"></div>
+</div>
+
+<!-- Newsletter -->
+<div class="nl">
+  <p class="nll">Subscribe to Our Newsletter</p>
+  <p class="nls">Get exclusive offers, new arrivals, and tailoring tips delivered to your inbox.</p>
+  <div class="nlform">
+    <input class="nlinput" type="email" placeholder="Your email address">
+    <button class="nlbtn">JOIN</button>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div>
+    <div class="fmwrap">
+      <img src="https://www.activepowerwashing.com/downloads/marcuswear/logo/logo.png" alt="MW">
+      <span>MW</span>
+    </div>
+    <p class="ftag">The Art of Fine Tailoring. Premium menswear crafted for the modern gentleman since 1996.</p>
+    <div class="fci"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.05 9.11a2 2 0 011.45-2.49h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 14.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span>(248) 399-8300</span></div>
+    <div class="fci"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>24705 Coolidge Hwy<br>Oak Park, MI 48237</span></div>
+    <div class="fci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Mon–Fri: 10am–6pm EST<br>Sat: 10am–5pm EST<br>Sunday: Closed</span></div>
+  </div>
+  <div class="fcol">
+    <h5>Company</h5>
+    <a>About Us</a><a>Contact Us</a><a>Privacy Policy</a><a>Return &amp; Refund Policy</a><a>Terms of Service</a><a>Shipping Policy</a>
+  </div>
+  <div class="fcol">
+    <h5>Help</h5>
+    <a>FAQs</a><a>Track Your Order</a><a>Start a Return</a><a>Help &amp; Support</a><a>Size Guide</a><a>Gift Cards</a>
+  </div>
+</footer>
+<div class="fbot">
+  <p>© 2025 Marcus Wear. All rights reserved.</p>
+  <div class="fsoc"><a>Instagram</a><a>Facebook</a><a>TikTok</a><a>X</a></div>
+</div>
+
+<script>
+/* PETALS */
+function petals(id) {
+  const cv = document.getElementById(id); if (!cv) return;
+  const cx = cv.getContext('2d');
+  function rs() { cv.width = cv.offsetWidth; cv.height = cv.offsetHeight; }
+  rs(); window.addEventListener('resize', rs);
+  const C = ['rgba(175,85,105,.48)','rgba(195,115,135,.37)','rgba(155,65,90,.43)','rgba(205,135,150,.34)','rgba(185,95,120,.4)'];
+  class P {
+    r(i) { this.x=Math.random()*cv.width; this.y=i?Math.random()*cv.height:-14; this.w=Math.random()*8+3; this.h=this.w*(Math.random()*.38+.28); this.vy=Math.random()*1.05+.32; this.vx=(Math.random()-.5)*.45; this.rot=Math.random()*Math.PI*2; this.rs=(Math.random()-.5)*.033; this.col=C[0|Math.random()*C.length]; this.a=Math.random()*.42+.22; }
+    constructor(){this.r(true)}
+    s(){this.y+=this.vy;this.x+=this.vx+Math.sin(this.y*.017)*.32;this.rot+=this.rs;if(this.y>cv.height+14)this.r(false);}
+    d(){cx.save();cx.translate(this.x,this.y);cx.rotate(this.rot);cx.globalAlpha=this.a;cx.fillStyle=this.col;cx.beginPath();cx.ellipse(0,0,this.w,this.h,0,0,Math.PI*2);cx.fill();cx.restore();}
+  }
+  const ps=Array.from({length:55},()=>new P());
+  (function loop(){cx.clearRect(0,0,cv.width,cv.height);ps.forEach(p=>{p.s();p.d()});requestAnimationFrame(loop)})();
+}
+petals('hpetal'); petals('cpetal');
+
+/* DATA */
+function card(p) {
+  const isSale = p.badge === 'SALE';
+  const prodData = JSON.stringify(p).replace(/'/g, "&#39;");
+  return `<div class="pc" onclick='buyProduct(${prodData})'>
+    <div class="piw">
+      <img src="${p.img}" alt="${p.name}" loading="lazy">
+      ${p.badge ? `<span class="pbadge${isSale?' pbadge-sale':''}">${p.badge}</span>` : ''}
+      <button class="wlb" onclick="event.stopPropagation();this.classList.toggle('on')">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+    </div>
+    <div class="pinfo">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:.2rem">
+        <span class="pbrand">${p.brand}</span>
+        <span class="pprice">${p.origPrice?`<span class="porig">${p.origPrice}</span><span class="psale">${p.price}</span>`:p.price}</span>
+      </div>
+      <div class="pname">${p.name}</div>
+      <div class="psizes">${p.sizes}</div>
+    </div>
+  </div>`;
+}
+
+const spring=[
+  {brand:'MARQUIS',name:"Men's Marquis Slim Fit Dress Shirt",sizes:'14½, 15½, 16½, 17½, 18½',price:'$29.99',img:'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500&q=80',badge:'SPRING'},
+  {brand:'MARQUIS',name:"Men's Marquis Signature Solid Light Grey Shirt",sizes:'14½, 15½, 16½, 17½, 18½',price:'$29.99',img:'https://images.unsplash.com/photo-1603252109303-2751441dd157?w=500&q=80',badge:'SPRING'},
+  {brand:'MARQUIS',name:"Men's Cream Dress Shirt (Cotton Blend / Slim Fit)",sizes:'14½, 15½, 16½, 17½, 18½',price:'$29.99',img:'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=500&q=80',badge:'SPRING'},
+  {brand:'MARQUIS',name:"Men's Classic Fit Cotton Blend Dress Shirt",sizes:'14½, 15, 15½, 16, 16½ +more',price:'$29.99',img:'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80',badge:'SPRING'},
+  {brand:'MARQUIS',name:"Men's French Cuff Dress Shirt (Slim Fit)",sizes:'14½, 15½, 16½, 17½, 18½',price:'$39.99',img:'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=500&q=80',badge:'SPRING'},
+  {brand:'DANIEL WAFER',name:"Men's Pointed End Laced Dress Shoes",sizes:'7–7.5, 8–8.5, 9–9.5, 10, 10.5 +more',price:'$119.99',img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80',badge:'SPRING'},
+  {brand:'DANIEL WAFER',name:"Men's Square-Toe Laced Dress Shoes",sizes:'7–7.5, 8–8.5, 9–9.5, 10, 10.5 +more',price:'$119.99',img:'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500&q=80',badge:'SPRING'},
+  {brand:'DANIEL WAFER',name:"Men's Black Square-Toe Laced Dress Shoes",sizes:'7–7.5, 8–8.5, 9–9.5, 10, 10.5 +more',price:'$119.99',img:'https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?w=500&q=80',badge:'SPRING'},
+];
+const bestsellers=[
+  {brand:'MARCUS WEAR',name:"Men's 3-Piece Slim Fit Vested Suit",sizes:'36S · 38R · 40R · 42R · 44L',price:'$189.99',img:'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500&q=80',badge:''},
+  {brand:'MARCUS WEAR',name:"Men's Double Breasted Peak Lapel Blazer",sizes:'S · M · L · XL · 2XL',price:'$99.99',origPrice:'$139.99',img:'https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?w=500&q=80',badge:'SALE'},
+  {brand:'DANIEL WAFER',name:"Men's Monk Strap Buckle Dress Shoe",sizes:'7 · 8 · 9 · 10 · 11 · 12',price:'$119.99',img:'https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=500&q=80',badge:''},
+  {brand:'MARCUS WEAR',name:"Men's Shawl Lapel 3-Piece Tuxedo",sizes:'36S · 38R · 40R · 42R · 44L',price:'$219.99',img:'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500&q=80',badge:''},
+  {brand:'MARQUIS',name:"Men's French Cuff Tuxedo Dress Shirt",sizes:'14½ · 15½ · 16½ · 17½',price:'$39.99',img:'https://images.unsplash.com/photo-1564200314-e994a94bf820?w=500&q=80',badge:''},
+  {brand:'MARCUS WEAR',name:"Men's Slim Fit Suit Vest",sizes:'S · M · L · XL · 2XL · 3XL',price:'$49.99',origPrice:'$69.99',img:'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500&q=80',badge:'SALE'},
+  {brand:'MARCUS WEAR',name:"Men's Notch Lapel Wool Blend Overcoat",sizes:'S · M · L · XL · 2XL',price:'$179.99',img:'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&q=80',badge:''},
+  {brand:'DANIEL WAFER',name:"Men's Oxford Cap-Toe Dress Shoe",sizes:'7 · 8 · 9 · 10 · 11 · 12',price:'$119.99',img:'https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=500&q=80',badge:''},
+];
+document.getElementById('sg').innerHTML = spring.map(card).join('');
+document.getElementById('bg').innerHTML = bestsellers.map(card).join('');
+</script>
+</body>
+</html>

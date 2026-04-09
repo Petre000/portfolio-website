@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marcus Wear — Admin Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Lato:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0e0f14;--card:#16181f;--card-border:#1e2028;--gold:#c49a28;--gold-dim:#a07e1e;
+  --text:#e8e4dc;--text-dim:#7a7670;--text-muted:#4a4740;--danger:#e74c3c;
+  --sans:'Lato',sans-serif;--caps:'Cinzel',serif;--serif:'Playfair Display',serif;
+}
+html{font-size:15px}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+
+/* Animated background */
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(196,154,40,.04) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(196,154,40,.03) 0%,transparent 50%),radial-gradient(ellipse at 50% 80%,rgba(196,154,40,.02) 0%,transparent 50%);animation:bgPulse 8s ease-in-out infinite alternate;z-index:0}
+@keyframes bgPulse{0%{opacity:.6}100%{opacity:1}}
+
+/* Grid pattern overlay */
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(196,154,40,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(196,154,40,.02) 1px,transparent 1px);background-size:60px 60px;z-index:0}
+
+.login-container{position:relative;z-index:1;width:100%;max-width:420px;padding:0 1.5rem}
+
+.login-card{background:var(--card);border:1px solid var(--card-border);border-radius:14px;padding:2.75rem 2.5rem;box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 80px rgba(196,154,40,.03);position:relative;overflow:hidden}
+.login-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+.logo-area{text-align:center;margin-bottom:2.2rem}
+.logo-area img{width:80px;height:auto;margin-bottom:.8rem;filter:drop-shadow(0 0 20px rgba(196,154,40,.15))}
+.logo-title{font-family:var(--caps);font-size:18px;font-weight:500;color:var(--gold);letter-spacing:.14em}
+.logo-sub{font-size:9.5px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--text-muted);margin-top:4px}
+
+h2{font-family:var(--serif);font-size:1.5rem;font-weight:400;color:var(--text);text-align:center;margin-bottom:.4rem}
+.login-desc{font-size:13px;color:var(--text-muted);text-align:center;margin-bottom:2rem}
+
+.field{margin-bottom:1.25rem}
+.field label{display:block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.5rem}
+.field input{width:100%;padding:11px 14px;background:var(--bg);border:1px solid var(--card-border);border-radius:6px;color:var(--text);font-size:13.5px;font-family:var(--sans);outline:none;transition:border-color .2s}
+.field input:focus{border-color:var(--gold)}
+.field input::placeholder{color:var(--text-muted)}
+
+.error-msg{background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.2);color:var(--danger);font-size:12px;padding:8px 12px;border-radius:6px;margin-bottom:1rem;display:none;text-align:center}
+.error-msg.show{display:block;animation:shake .4s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+
+.login-btn{width:100%;padding:12px;background:var(--gold);border:none;border-radius:6px;color:#111;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;font-family:var(--sans);cursor:pointer;transition:background .2s,transform .1s;margin-top:.5rem}
+.login-btn:hover{background:#d4aa3a}
+.login-btn:active{transform:scale(.98)}
+.login-btn:disabled{opacity:.5;cursor:not-allowed}
+
+.login-footer{text-align:center;margin-top:1.8rem;font-size:11.5px;color:var(--text-muted)}
+.login-footer a{color:var(--gold);text-decoration:none;font-weight:600}
+.login-footer a:hover{text-decoration:underline}
+
+.test-creds{background:rgba(196,154,40,.06);border:1px solid rgba(196,154,40,.12);border-radius:8px;padding:.8rem 1rem;margin-top:1.5rem;font-size:11.5px;color:var(--text-dim);line-height:1.6}
+.test-creds strong{color:var(--gold);font-weight:600}
+.test-creds code{background:rgba(255,255,255,.06);padding:1px 5px;border-radius:3px;font-size:11px;color:var(--text);font-family:monospace}
+
+/* Loading spinner */
+.spinner{display:none;width:18px;height:18px;border:2px solid rgba(17,17,17,.2);border-top-color:#111;border-radius:50%;animation:spin .6s linear infinite;margin:0 auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<div class="login-container">
+  <div class="login-card">
+    <div class="logo-area">
+      <img src="https://www.activepowerwashing.com/downloads/marcuswear/logo/logo.png" alt="Marcus Wear">
+      <div class="logo-title">Marcus Wear</div>
+      <div class="logo-sub">Admin Panel</div>
+    </div>
+
+    <h2>Welcome Back</h2>
+    <p class="login-desc">Sign in to manage your store</p>
+
+    <div class="error-msg" id="errorMsg">Invalid username or password</div>
+
+    <div class="field">
+      <label>Username</label>
+      <input type="text" id="username" placeholder="Enter username" autocomplete="username">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="password" placeholder="Enter password" autocomplete="current-password">
+    </div>
+
+    <button class="login-btn" id="loginBtn" onclick="doLogin()">
+      <span id="btnText">Sign In</span>
+      <div class="spinner" id="spinner"></div>
+    </button>
+
+    <div class="login-footer">
+      <a href="index.html">← Back to Store</a>
+    </div>
+
+    <div class="test-creds">
+      <strong>Test Credentials:</strong><br>
+      Username: <code>admin</code><br>
+      Password: <code>marcus2026</code>
+    </div>
+  </div>
+</div>
+
+<script>
+const VALID_USER = 'admin';
+const VALID_PASS = 'marcus2026';
+
+// Check if already logged in
+if(sessionStorage.getItem('mw_admin_auth') === 'true') {
+  window.location.href = 'admin.html';
+}
+
+document.getElementById('password').addEventListener('keydown', e => {
+  if(e.key === 'Enter') doLogin();
+});
+document.getElementById('username').addEventListener('keydown', e => {
+  if(e.key === 'Enter') document.getElementById('password').focus();
+});
+
+function doLogin() {
+  const user = document.getElementById('username').value.trim();
+  const pass = document.getElementById('password').value;
+  const err = document.getElementById('errorMsg');
+  const btn = document.getElementById('loginBtn');
+  const btnText = document.getElementById('btnText');
+  const spinner = document.getElementById('spinner');
+
+  err.classList.remove('show');
+
+  if(!user || !pass) {
+    err.textContent = 'Please enter both username and password';
+    err.classList.add('show');
+    return;
+  }
+
+  btn.disabled = true;
+  btnText.style.display = 'none';
+  spinner.style.display = 'block';
+
+  // Simulate network delay
+  setTimeout(() => {
+    if(user === VALID_USER && pass === VALID_PASS) {
+      sessionStorage.setItem('mw_admin_auth', 'true');
+      window.location.href = 'admin.html';
+    } else {
+      err.textContent = 'Invalid username or password';
+      err.classList.add('show');
+      btn.disabled = false;
+      btnText.style.display = 'inline';
+      spinner.style.display = 'none';
+    }
+  }, 800);
+}
+</script>
+</body>
+</html>
