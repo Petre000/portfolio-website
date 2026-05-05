@@ -458,3 +458,47 @@ document.addEventListener('keydown', function (event) {
         }
     });
 })();
+
+// --- Video Modal Logic ---
+const videoModal = document.getElementById('video-modal');
+const modalVideo = document.getElementById('modal-video');
+
+function openVideoModal(videoSrc) {
+    modalVideo.src = videoSrc;
+    videoModal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    modalVideo.play();
+}
+
+function closeVideoModal(e) {
+    if (e && e.currentTarget === videoModal && e.target !== videoModal) return;
+    videoModal.classList.remove('show');
+    document.body.style.overflow = '';
+    modalVideo.pause();
+    modalVideo.currentTime = 0;
+}
+
+window.openVideoModal = openVideoModal;
+window.closeVideoModal = closeVideoModal;
+
+// --- PowerPoint Modal Logic ---
+const pptModal = document.getElementById('ppt-modal');
+const pptIframe = document.getElementById('ppt-iframe');
+
+function openPptModal(pptUrl) {
+    const encodedUrl = encodeURIComponent(pptUrl);
+    const viewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodedUrl}`;
+    pptIframe.src = viewerUrl;
+    pptModal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+function closePptModal(e) {
+    if (e && e.currentTarget === pptModal && e.target !== pptModal) return;
+    pptModal.classList.remove('show');
+    document.body.style.overflow = '';
+    pptIframe.src = '';
+}
+
+window.openPptModal = openPptModal;
+window.closePptModal = closePptModal;
